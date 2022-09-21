@@ -1,0 +1,59 @@
+let xbolinha = 300;
+let ybolinha = 200;
+let diametro = 15;
+let raio = diametro/2;
+
+let velocidadexbolinha = 6;
+let velocidadeybolinha = 6;
+
+let xraquete = 10;
+let yraquete = 150;
+let comprimentoraquete = 10;
+let alturaraquete = 90;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(0);
+    mostrabolinha();
+  movimentabolinha(); 
+  verificaposicao();
+  mostraraquete();
+  
+  movimentaraquete();
+  verificacolisao();
+}
+function mostrabolinha(){
+  circle(xbolinha,ybolinha,diametro);
+}
+function movimentabolinha(){
+  xbolinha += velocidadexbolinha;
+  ybolinha += velocidadeybolinha;
+}
+function verificaposicao(){
+   
+  if (xbolinha + raio > width || xbolinha - raio< 0){
+    velocidadexbolinha *= -1;
+  }
+  if (ybolinha + raio > height || ybolinha - raio < 0){
+    velocidadeybolinha *= -1;
+  }
+}
+function mostraraquete(){
+  rect(xraquete,yraquete,comprimentoraquete,alturaraquete);
+}
+function movimentaraquete(){
+  if(keyIsDown(UP_ARROW)){
+    yraquete -=10;
+  }
+  if(keyIsDown(DOWN_ARROW)){
+    yraquete +=10;
+  }
+}
+function verificacolisao(){
+  if ( xbolinha - raio < xraquete + comprimentoraquete && ybolinha - raio < yraquete + alturaraquete && ybolinha + raio > yraquete){
+    velocidadexbolinha *= -1;
+  }
+}
